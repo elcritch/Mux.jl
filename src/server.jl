@@ -42,13 +42,13 @@ end
 const default_host = ip"127.0.0.1"
 const default_port = 8000
 
-function serve(s::Server, host = default_host, port = default_port)
+function serve(s::Server; host = default_host, port = default_port)
   @async @errs run(s, port)
   return
 end
 
-serve(h::App, host = default_host, port = default_port) =
+serve(h::App; host = default_host, port = default_port) =
   serve(Server(http_handler(h)), port)
 
-serve(h::App, w::App, host = default_host, port = default_port) =
+serve(h::App, w::App; host = default_host, port = default_port) =
   serve(Server(http_handler(h), ws_handler(w)), port)
