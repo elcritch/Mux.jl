@@ -20,8 +20,8 @@ function stack(m, n)
 end
 stack(ms...) = foldl(stack, ms)
 
-function branch(p, branch_true) 
-	function branch_check(f, x) 
+function branch(p, branch_true::Function)
+	function branch_check(f::Function, x) 
 		if p(x) 
 			branch_true(x) 
 		else
