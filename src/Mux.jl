@@ -20,9 +20,13 @@ function stack(m, n)
 end
 stack(ms...) = foldl(stack, ms)
 
-function branch(p, t) 
+function branch(p, branch_true) 
 	function branch_check(f, x) 
-		(p(x) ? t : f)(x)
+		if p(x) 
+			branch_true(x) 
+		else
+			branch_false(x)
+		end
 	end
 end
 
