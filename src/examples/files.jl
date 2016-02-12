@@ -23,10 +23,11 @@ fileresponse(f) = d(:file => f,
                     :body => open(readbytes, f),
                     :headers => fileheaders(f))
 
-fresp(f) =
-  isfile(f) ? fileresponse(f) :
-  isdir(f) ?  dirresponse(f) :
+function fresp(f)
+  isfile(f) && fileresponse(f)
+  isdir(f) &&  dirresponse(f)
   error("$f doesn't exist")
+end
 
 files(root, dirs = true) =
   branch(req -> validpath(root, joinpath(req[:path]...), dirs=dirs),

@@ -5,15 +5,30 @@ export mux, stack, branch
 # This might be the smallest core ever.
 
 mux(f) = f
-mux(m, f) = x -> m(f, x)
+
+function mux(m, f)
+	apply_mux(x) = m(f, x)
+	return apply_mux
+end
+
 mux(ms...) = foldr(mux, ms)
 
 stack(m) = m
-stack(m, n) = (f, x) -> m(mux(n, f), x)
+function stack(m, n) 
+	apply_stack(f, x) = m(mux(n, f), x)
+	return apply_stack
+end
 stack(ms...) = foldl(stack, ms)
 
-branch(p, t) = (f, x) -> (p(x) ? t : f)(x)
-branch(p, t...) = branch(p, mux(t...))
+function branch(p, t) 
+	function branch_check(f, x) 
+		(p(x) ? t : f)(x)
+	end
+end
+
+function branch(p, t...) 
+	branch(p, mux(t...))
+end
 
 # May as well provide a few conveniences, though.
 

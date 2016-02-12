@@ -50,5 +50,5 @@ end
 serve(h::App; host = default_host, port = default_port) =
   serve(Server(http_handler(h)), host=host, port=port)
 
-serve(h::App, w::App; host = default_host, port = default_port) =
+serve(h::App, w::App; host = default_host, port = default_port) = 
   serve(Server(http_handler(h), ws_handler(w)), host=host, port=port)
