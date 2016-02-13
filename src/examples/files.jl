@@ -24,9 +24,10 @@ fileresponse(f) = d(:file => f,
                     :headers => fileheaders(f))
 
 function fresp(f)
+  fabs = @show(abspath(f))
   isfile(f) && fileresponse(f)
   isdir(f) &&  dirresponse(f)
-  error("$f doesn't exist")
+  error("`$f` doesn't exist")
 end
 
 files(root, dirs = true) =
