@@ -25,7 +25,7 @@ function branch(p, branch_true::Function)
 		if p(x) 
 			branch_true(x) 
 		else
-			branch_false(x)
+			f(x)
 		end
 	end
 end
